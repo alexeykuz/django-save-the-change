@@ -115,7 +115,7 @@ class BaseChangeTracker(object):
 			except FieldDoesNotExist:
 				field = None
 			
-			if field and not field.hidden and field.__class__ not in (ManyToManyField, ManyToOneRel):
+			if (field and not field.hidden and field.__class__ not in (ManyToManyField, ManyToOneRel)) and hasattr(field, 'attname'):
 				old = self.__dict__.get(field.attname, DoesNotExist)
 				
 				if old is not DoesNotExist and field.is_relation:
